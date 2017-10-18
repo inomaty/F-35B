@@ -6,6 +6,7 @@ if((getprop("/controls/engines/vto-switch") == 1)){
 #var noz_pos = getprop("/controls/engines/vto/position-norm");
 setprop("/controls/engines/engine[0]/mixture",getprop("/controls/engines/vto/position-norm"));
 	if((getprop("/controls/engines/vto/position-norm")>= 0.026) and (getprop("/controls/engines/vto/position-norm")<= 0.0265 )){
+	screen.log.write("Nozzle is VTOL position",1,1,1);
 	setprop("/controls/engines/vto-switch",0);
 	}
 }

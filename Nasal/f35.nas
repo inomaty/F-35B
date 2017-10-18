@@ -103,6 +103,7 @@ var cockpit_state = func {
 
 var vto = aircraft.door.new("/controls/engines/vto", 5);
 var vto_sw = props.globals.getNode("/controls/engines/vto-switch", 1);
+vto_sw.setValue(0);
 var va = 5/190;
 
 var vto_pos = func(){
@@ -111,13 +112,15 @@ var vto_pos = func(){
 	vto.setpos(noz_pos);
 	vto.move(va);
 	vto_sw.setValue(1);
-	var vlis = setlistener("/controls/engines/vto-switch",func(){
-	screen.log.write("Nozzle is VTOL position",1,1,1);
-	removelistener(vlis);
-	});
-}
+	}
 
 var stop_vto = func(){
+	if(getprop("/controls/engines/vto-switch") == 0){
+	screen.log.write("Already stopped changing",1,1,1);
+	}
+	else{
 	vto.stop();
-	screen.log.write("Stopped nozzle position change",1,1,1);
+	screen.log.write("Stopped nozzle position changing",1,1,1);
+	vto_sw.setValue(0);
+	}
 }
